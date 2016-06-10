@@ -9,7 +9,7 @@ logstash:
   command: logstash -f /etc/logstash/conf.d/logstash.conf
   volumes:
     - ./logstash/config:/etc/logstash/conf.d
-    - ./pai-logs:/pai-logs:ro
+    - /pai-logs:/pai-logs:ro
   ports:
     - "5000:5000"
   links:
