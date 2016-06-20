@@ -1,19 +1,27 @@
 elasticsearch:
   image: elasticsearch:latest
-  command: elasticsearch -Des.network.host=0.0.0.0
+  command: elasticsearch -Des.network.host=0.0.0.0 -Des.cluster.name=elasticsearch -Des.network.publish_host=192.168.1.57 -Des.discovery.zen.ping.unicast.hosts=192.168.1.118,192.168.1.118:9301,192.168.1.57:9301
   ports:
     - "9200:9200"
     - "9300:9300"
+
+elasticsearchloadbalancer:
+  image: elasticsearch:latest
+  command: elasticsearch -Des.network.host=0.0.0.0 -Des.cluster.name=elasticsearch -Des.node.master=false -Des.node.data=false -Des.network.publish_host=192.168.1.57 -Des.transport.publish_port=9301 -Des.http.publish_port=9201 -Des.discovery.zen.ping.unicast.hosts=192.168.1.118,192.168.1.118:9301,192.168.1.57
+  ports:
+    - "9201:9200"
+    - "9301:9300"
+
 logstash:
-  image: logstash:latest
+  build: logstash/
   command: logstash -f /etc/logstash/conf.d/logstash.conf
   volumes:
     - ./logstash/config:/etc/logstash/conf.d
-    - /pai-logs:/pai-logs:ro
   ports:
     - "5000:5000"
   links:
-    - elasticsearch
+    - elasticsearchloadbalancer
+
 kibana:
   build: kibana/
   volumes:
@@ -21,4 +29,4 @@ kibana:
   ports:
     - "5601:5601"
   links:
-    - elasticsearch
+    - elasticsearchloadbalancer
