@@ -23,6 +23,7 @@ logstash:
   command: logstash -f /etc/logstash/conf.d/logstash.conf
   volumes:
     - ./logstash/config:/etc/logstash/conf.d
+    - ./logstash/sincedb:/var/lib/logstash
     - /pai-logs:/pai-logs
   ports:
     - "5000:5000"
