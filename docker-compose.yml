@@ -20,7 +20,7 @@ elasticsearchloadbalancer:
 
 logstash:
   build: logstash/
-  command: logstash -f /etc/logstash/conf.d/logstash.conf
+  command: logstash -f /etc/logstash/conf.d/ --auto-reload
   volumes:
     - ./logstash/config:/etc/logstash/conf.d
     - ./logstash/sincedb:/var/lib/logstash
