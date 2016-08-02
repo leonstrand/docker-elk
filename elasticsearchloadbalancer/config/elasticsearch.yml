@@ -1,0 +1,9 @@
+network.host: 0.0.0.0
+cluster.name: elasticsearch
+network.publish_host: 192.168.1.57
+node.master: false 
+node.data: false 
+transport.publish_port: 9301 
+http.publish_port: 9201 
+discovery.zen.ping.multicast.enabled: false 
+discovery.zen.ping.unicast.hosts: ["192.168.1.57", "192.168.1.77", "192.168.1.77:9301", "192.168.1.118", "192.168.1.118:9301", "192.168.1.251", "192.168.1.251:9301"]

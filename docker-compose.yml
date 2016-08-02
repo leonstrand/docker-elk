@@ -1,19 +1,34 @@
 elasticsearch:
   image: elasticsearch:latest
-  command: elasticsearch -Des.network.host=0.0.0.0
+  command: elasticsearch
+  volumes:
+    - ./elasticsearch/config:/usr/share/elasticsearch/config
   ports:
     - "9200:9200"
     - "9300:9300"
+  links:
+    - elasticsearchloadbalancer
+
+elasticsearchloadbalancer:
+  image: elasticsearch:latest
+  command: elasticsearch
+  volumes:
+    - ./elasticsearchloadbalancer/config:/usr/share/elasticsearch/config
+  ports:
+    - "9201:9200"
+    - "9301:9300"
 
 logstash:
   build: logstash/
-  command: logstash -f /etc/logstash/conf.d/logstash.conf
+  command: logstash -f /etc/logstash/conf.d/ --auto-reload
   volumes:
     - ./logstash/config:/etc/logstash/conf.d
+    - /pai-logs:/pai-logs
   ports:
     - "5000:5000"
   links:
-    - elasticsearch
+    - elasticsearchloadbalancer
+
 kibana:
   build: kibana/
   volumes:
@@ -21,4 +36,4 @@ kibana:
   ports:
     - "5601:5601"
   links:
-    - elasticsearch
+    - elasticsearchloadbalancer
