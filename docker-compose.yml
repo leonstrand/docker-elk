@@ -2,7 +2,8 @@ elasticsearch:
   image: elasticsearch:latest
   command: elasticsearch
   volumes:
-    - ./elasticsearch/config:/usr/share/elasticsearch/config
+    - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    - ./elasticsearch/config/logging.yml:/usr/share/elasticsearch/config/logging.yml
   ports:
     - "9200:9200"
     - "9300:9300"
@@ -13,7 +14,8 @@ elasticsearchloadbalancer:
   image: elasticsearch:latest
   command: elasticsearch
   volumes:
-    - ./elasticsearchloadbalancer/config:/usr/share/elasticsearch/config
+    - ./elasticsearchloadbalancer/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    - ./elasticsearchloadbalancer/config/logging.yml:/usr/share/elasticsearch/config/logging.yml
   ports:
     - "9201:9200"
     - "9301:9300"
