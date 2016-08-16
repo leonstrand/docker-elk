@@ -1,5 +1,5 @@
 network.host: 0.0.0.0
-cluster.name: elasticsearch
+cluster.name: elasticsearch-pai
 network.publish_host: docker host ip address or hostname, e.g. 192.168.1.57
 node.master: false 
 node.data: false 
