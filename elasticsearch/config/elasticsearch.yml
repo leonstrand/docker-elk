@@ -3,3 +3,4 @@ cluster.name: elasticsearch
 network.publish_host: docker host ip address or hostname, e.g. 192.168.1.57
 discovery.zen.ping.multicast.enabled: false 
 discovery.zen.ping.unicast.hosts: comma-separated, double-quoted host or ip address list, ports optional, elasticsearchloadbalancer host first, surrounded by square brackets, e.g. ["elasticsearchloadbalancer", "192.168.1.77", "192.168.1.77:9301"]
+index.codec: best_compression
