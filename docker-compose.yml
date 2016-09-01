@@ -4,6 +4,7 @@ elasticsearch:
   volumes:
     - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     - ./elasticsearch/config/logging.yml:/usr/share/elasticsearch/config/logging.yml
+    - ${ELASTICSEARCH_INDICES_PATH}/elasticsearch/data:/usr/share/elasticsearch/data
   ports:
     - "9200:9200"
     - "9300:9300"
